@@ -57,11 +57,10 @@ public class Produto
 
     @Override
     public String toString() {
-        return "{" +
-            " codigo='" + getCodigo() + "'" +
-            ", nome='" + getNome() + "'" +
-            ", qnt='" + getQnt() + "'" +
-            ", qntMinima='" + getQntMinima() + "'" +
-            "}";
+        return getCodigo()+ ". "+
+            getNome()+
+            "\tQUANTIDADE:" +getQnt()+
+            "\tMINIMO:" +getQntMinima()+
+            "\tPRECO:" +getPreco();
     }
 }
