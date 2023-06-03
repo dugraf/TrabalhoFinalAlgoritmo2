@@ -1,4 +1,4 @@
-Controle de estoque.Estoque
+Controle de estoque
 
 1) INSERIR PRODUTOS
 2) ADICIONAR QUANTIDADES DE PRODUTOS NO ESTOQUE
