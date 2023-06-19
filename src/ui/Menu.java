@@ -1,7 +1,5 @@
 package ui;
 
-import java.util.Random;
-
 import estoque.Estoque;
 import estoque.Produto;
 import input.Input;
@@ -49,6 +47,7 @@ public class Menu
                 System.exit(0);
                 break;
             default:
+                System.out.println("Digite um número válido! ");
                 break;
         }
     }
@@ -70,8 +69,8 @@ public class Menu
     {
         System.out.println("Qual produto voce gostaria de selecionar? (SELECIONE PELO CODIGO)");
         estoque.listarProdutos();
-        //ADICIONAR NO INPUT UM RECEBIMENTO DE PARAMETRO, ESSE PARAMETRO IRA DECIDIR ATE QUE NUMERO PODEMOS INSERIR NO INPUT, CASO UM NUMERO ERRADO, EXCEPTION
-        return estoque.selecionarProduto(input.inputInt());
+
+        return estoque.selecionarProduto(input.inputInt(""));
     }
 
     public void adicionarQuantidade(Produto produtoSelecionado)
