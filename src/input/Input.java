@@ -4,20 +4,23 @@ import java.util.Scanner;
 
 public class Input
 {
-    private Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
 
-    public String inputString()
+    public static String inputString(String texto)
     {
+        System.out.println(texto);
         return sc.next();
     }
 
-    public int inputInt()
+    public static int inputInt(String texto)
     {
+        System.out.println(texto);
         return sc.nextInt();
     }
 
-    public double inputDouble()
+    public static double inputDouble(String texto)
     {
+        System.out.println(texto);
         return sc.nextDouble();
     }
 }

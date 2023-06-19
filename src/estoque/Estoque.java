@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Estoque
 {
     private ArrayList<Produto> estoque = new ArrayList<Produto>();
-    
     public void inserirNovoProduto(Produto produto)
     {
         estoque.add(produto);
