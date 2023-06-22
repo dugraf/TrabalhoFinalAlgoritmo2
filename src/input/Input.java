@@ -1,5 +1,6 @@
 package input;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Input
@@ -12,15 +13,32 @@ public class Input
         return sc.next();
     }
 
-    public static int inputInt(String texto)
-    {
-        System.out.println(texto);
-        return sc.nextInt();
+    public static int inputInt(String texto) {
+        try {
+            System.out.println(texto);
+            return Integer.parseInt(sc.next());
+        } catch (NumberFormatException ex) {
+            System.out.println("Digite um número válido: " + ex);
+            return inputInt(texto);
+        }
     }
 
-    public static double inputDouble(String texto)
-    {
-        System.out.println(texto);
-        return sc.nextDouble();
+    public static int inputIntSemTexto() {
+        try {
+            return Integer.parseInt(sc.next());
+        } catch (NumberFormatException ex) {
+            System.out.println("Digite um número válido: " + ex);
+            return inputIntSemTexto();
+        }
+    }
+
+    public static double inputDouble(String texto) {
+        try {
+            System.out.println(texto);
+            return Double.parseDouble(sc.next());
+        } catch (NumberFormatException ex) {
+            System.out.println("Digite um número válido: " + ex);
+            return inputInt(texto);
+        }
     }
 }

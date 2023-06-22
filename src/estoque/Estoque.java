@@ -23,9 +23,9 @@ public class Estoque
         produto.setQnt(produto.getQnt() + quantidade);
     }
 
-    public void retirarQuantidadeEstoque(Produto produto, int quantidade)
-    {
-        produto.setQnt(produto.getQnt() - quantidade);
+    public void retirarQuantidadeEstoque(Produto produto, int quantidade) {
+        if(quantidade <= produto.getQnt())
+            produto.setQnt(produto.getQnt() - quantidade);
     }
 
     public Produto selecionarProduto(int input)
@@ -66,5 +66,13 @@ public class Estoque
         if(quantidadeAtual <= quantidadeMinima)
             return true;
         return false;
+    }
+
+    public boolean temProdutos() {
+        return estoque.size() != 0;
+    }
+
+    public boolean temCodigo(int codigo) {
+        return codigo <= 1 && codigo >= estoque.size();
     }
 }

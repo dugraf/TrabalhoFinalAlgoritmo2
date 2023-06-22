@@ -19,58 +19,75 @@ public class Menu {
     }
 
     public void escolhas() {
-        switch (Input.inputInt("")) {
-            case 1 -> adicionaNovoProduto();
-            case 2 -> {
-                Produto produtoQntAdicionada = manipulacaoDeQuantidades();
-                adicionarQuantidade(produtoQntAdicionada);
+        int var = Input.inputIntSemTexto();
+        if(var < 1 || var > 6) {
+            System.out.println("Digite um número válido:");
+        } else {
+            switch (var) {
+                case 1 -> adicionaNovoProduto();
+                case 2 -> {
+                    if(estoque.temProdutos()) {
+                        Produto produtoQntAdicionada = manipulacaoDeQuantidades();
+                        adicionarQuantidade(produtoQntAdicionada);
+                    } else {
+                        System.out.println("Não há produtos na loja.");
+                    }
+                }
+                case 3 -> {
+                    if(estoque.temProdutos()) {
+                        Produto produtoQntRemovida = manipulacaoDeQuantidades();
+                        retirarQuantidade(produtoQntRemovida);
+                    } else {
+                        System.out.println("Não há produtos na loja.");
+                    }
+                }
+                case 4 -> estoque.listarProdutos();
+                case 5 -> {
+                    //mostraProdutosAbaixo();
+                    estoque.produtosAbaixo();
+                }
+                case 6 -> System.exit(0);
             }
-            case 3 -> {
-                Produto produtoQntRemovida = manipulacaoDeQuantidades();
-                retirarQuantidade(produtoQntRemovida);
-            }
-            case 4 -> estoque.listarProdutos();
-            case 5 -> {
-                //mostraProdutosAbaixo();
-                estoque.produtosAbaixo();
-            }
-            case 6 -> System.exit(0);
         }
     }
 
 
-    public void adicionaNovoProduto()
-    {
+    public void adicionaNovoProduto() {
         String nome = Input.inputString("Inserir nome do Produto");
         int qnt = Input.inputInt("Inserir quantidade do Produto");
-        int qntMinima = Input.inputInt("Inserir quantidade minima do Produto");
-        double preco = Input.inputDouble("Preco do Produto");
+        int qntMinima = Input.inputInt("Inserir quantidade mínima do Produto");
+        double preco = Input.inputDouble("Preço do Produto");
 
         Produto produto = new Produto(nome, qnt, qntMinima, preco);
         estoque.inserirNovoProduto(produto);
         menuInicial();
     }
 
-    public Produto manipulacaoDeQuantidades()
-    {
-        System.out.println("Qual produto voce gostaria de selecionar? (SELECIONE PELO CODIGO)");
+    public Produto manipulacaoDeQuantidades() {
         estoque.listarProdutos();
-
-        return estoque.selecionarProduto(Input.inputInt(""));
+        int var = Input.inputInt("Qual produto voce gostaria de selecionar? (SELECIONE PELO CODIGO)");
+        if(estoque.temCodigo(var)) {
+            return estoque.selecionarProduto(var);
+        } else {
+            System.out.println("Digite um código onde exista produta");
+        }
+        return manipulacaoDeQuantidades();
     }
 
-    public void adicionarQuantidade(Produto produtoSelecionado)
-    {
+    public void adicionarQuantidade(Produto produtoSelecionado) {
         int quantidade = Input.inputInt("Quantidade do produto " +produtoSelecionado.getNome()+ " a ser adionada: ");
         estoque.inserirQuantidadeEstoque(produtoSelecionado, quantidade);
         System.out.println("ADICIONADO(A) " +quantidade+ " UN PARA " +produtoSelecionado.getNome().toUpperCase() +"\nTOTAL: " +produtoSelecionado.getQnt());
     }
 
-    public void retirarQuantidade(Produto produtoSelecionado)
-    {
+    public void retirarQuantidade(Produto produtoSelecionado) {
         int quantidade = Input.inputInt("Quantidade do produto " +produtoSelecionado.getNome()+ " a ser removida: ");
         estoque.retirarQuantidadeEstoque(produtoSelecionado, quantidade);
-        System.out.println("RETIRADO(A) " +quantidade+ " UN PARA " +produtoSelecionado.getNome().toUpperCase() +"\nTOTAL: " +produtoSelecionado.getQnt());
+        if(quantidade <= produtoSelecionado.getQnt())
+            System.out.println("RETIRADO(A) " + quantidade + " UN PARA " + produtoSelecionado.getNome().toUpperCase() + "\nTOTAL: " + produtoSelecionado.getQnt());
+        else {
+            System.out.println("Não há produtos suficientes que você solicitou");
+        }
     }
 
     private void mostraProdutosAbaixo()
