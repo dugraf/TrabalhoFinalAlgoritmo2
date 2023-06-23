@@ -60,6 +60,8 @@ public class Estoque
             if(estaAbaixo(quantidadeAtual, quantidadeMinima))
                 produtosAbaixo.add(estoque.get(i));
         }
+        if(produtosAbaixo.size() == 0)
+            System.out.println("Nao ha produtos abaixo do estoque!");
         arquivoAbaixo.criaArquivo(produtosAbaixo);
         listarProdutosAbaixo(produtosAbaixo);
     }
@@ -83,7 +85,9 @@ public class Estoque
     }
 
     public boolean temCodigo(int codigo) {
-        return codigo <= 1 && codigo >= estoque.size();
+        if(codigo >= 1 && codigo <= estoque.size())
+            return true;
+        return false;
     }
 
     public void inserirNovoProdutoArray(ArrayList<Produto> produtosArquivo)

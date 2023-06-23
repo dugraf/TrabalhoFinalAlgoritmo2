@@ -1,12 +1,11 @@
 package ui;
 
-import archives.ReadProdutos;
 import estoque.Estoque;
 import estoque.Produto;
 import input.Input;
-
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+
+import archives.ReadProdutos;
 
 public class Menu {
     Estoque estoque = new Estoque();
@@ -14,7 +13,7 @@ public class Menu {
     public void menuInicial() {
         while(true) {
             System.out.println("****************\nESTOQUE DUS GURI\n****************");
-            System.out.println("\n\n1. INSERIR PRODUTO\n2. ADICIONAR QUANTIDADES DE PRODUTOS NO ESTOQUE\n3. RETIRAR QUANTIDADE DE PRODUTOS NO ESTOQUE\n4. LISTAR TODOS OS PRODUTOS\n5. LISTAR PRODUTOS QUE ESTAO ABAIXO DO ESTOQUE\n6. LER ARQUIVO (O ARQUIVO SE ENCONTRA EM: 'C:\\\\temp\\\\ReadProdutos\\\\') \n7. SAIR");
+            System.out.println("\n\n1. INSERIR PRODUTO\n2. ADICIONAR QUANTIDADES DE PRODUTOS NO ESTOQUE\n3. RETIRAR QUANTIDADE DE PRODUTOS NO ESTOQUE\n4. LISTAR TODOS OS PRODUTOS\n5. LISTAR PRODUTOS QUE ESTAO ABAIXO DO ESTOQUE\n6. LER ARQUIVO (O ARQUIVO SE ENCONTRA EM: 'C:\\temp\\ReadProdutos\\') \n7. SAIR");
 
             escolhas();
         }
@@ -23,37 +22,43 @@ public class Menu {
     public void escolhas() {
         int var = Input.inputIntSemTexto();
         if(var < 1 || var > 7) {
-            System.out.println("Digite um número válido:");
+            System.out.println("Digite um número válido!");
         } else {
             switch (var) {
-                case 1 -> adicionaNovoProduto();
-                case 2 -> {
+                case 1:
+                    adicionaNovoProduto();
+                    break;
+                case 2:
                     if(estoque.temProdutos()) {
                         Produto produtoQntAdicionada = manipulacaoDeQuantidades();
                         adicionarQuantidade(produtoQntAdicionada);
                     } else {
                         System.out.println("Não há produtos na loja.");
                     }
-                }
-                case 3 -> {
+                    break;
+                case 3:
                     if(estoque.temProdutos()) {
                         Produto produtoQntRemovida = manipulacaoDeQuantidades();
                         retirarQuantidade(produtoQntRemovida);
-                    } else {
+                    } else
                         System.out.println("Não há produtos na loja.");
-                    }
-                }
-                case 4 -> estoque.listarProdutos();
-                case 5 -> {
+                    break;
+                case 4: 
+                    estoque.listarProdutos();
+                    break;
+                case 5:
                     estoque.produtosAbaixo();
                     System.out.println("Produtos registrados no arquivo 'C:\\temp\\ReadProdutos\\listaAbaixo.txt'");
-                }
-                case 6 -> {
+                    break;
+                case 6:
                     ReadProdutos lerArquivo = new ReadProdutos();
                     ArrayList<Produto> produtosArquivo = lerArquivo.arquivo();
                     estoque.inserirNovoProdutoArray(produtosArquivo);
-                }
-                case 7 -> System.exit(0);
+                    System.out.println("ARQUIVO LIDO E IMPORTADO PARA O SISTEMA, COM SUCESSO!");
+                    break;
+                case 7:
+                    System.exit(0);
+                    break;
             }
         }
     }
@@ -64,17 +69,6 @@ public class Menu {
         int qnt = Input.inputInt("Inserir quantidade do Produto");
         int qntMinima = Input.inputInt("Inserir quantidade mínima do Produto");
         double preco = Input.inputDouble("Preço do Produto");
-
-        if(qnt < 0)
-            qnt = 0;
-
-        if(qntMinima < 0)
-            qntMinima = 0;
-
-        while(preco <= 0) {
-            System.out.println("Digite um valor para preço válido");
-            preco = Input.inputDouble("Preço do Produto");
-        }
 
         Produto produto = new Produto(nome, qnt, qntMinima, preco);
         estoque.inserirNovoProduto(produto);
@@ -87,7 +81,7 @@ public class Menu {
         if(estoque.temCodigo(var)) {
             return estoque.selecionarProduto(var);
         } else {
-            System.out.println("Digite um código onde exista produta");
+            System.out.println("Digite um código onde exista produto");
         }
         return manipulacaoDeQuantidades();
     }
