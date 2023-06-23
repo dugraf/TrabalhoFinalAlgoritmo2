@@ -1,15 +1,22 @@
 package estoque;
 
+import archives.WriteLProdutosAbaixo;
+import archives.WriteListarProdutos;
+
 import java.util.ArrayList;
 
 public class Estoque
 {
     private ArrayList<Produto> estoque = new ArrayList<Produto>();
-    
+    private WriteListarProdutos arquivoListar = new WriteListarProdutos();
+    private WriteLProdutosAbaixo arquivoAbaixo = new WriteLProdutosAbaixo();
+
+
     public void inserirNovoProduto(Produto produto)
     {
         estoque.add(produto);
         atualizaCodigoProduto(produto);
+        arquivoListar.criaArquivo(retornaEstoque(), produto);
     }
 
     public void atualizaCodigoProduto(Produto produto)
@@ -21,7 +28,8 @@ public class Estoque
 
     public void inserirQuantidadeEstoque(Produto produto, int quantidade)
     {
-        produto.setQnt(produto.getQnt() + quantidade);
+        if(quantidade > 0)
+            produto.setQnt(produto.getQnt() + quantidade);
     }
 
     public void retirarQuantidadeEstoque(Produto produto, int quantidade) {
@@ -52,6 +60,7 @@ public class Estoque
             if(estaAbaixo(quantidadeAtual, quantidadeMinima))
                 produtosAbaixo.add(estoque.get(i));
         }
+        arquivoAbaixo.criaArquivo(produtosAbaixo);
         listarProdutosAbaixo(produtosAbaixo);
     }
 
@@ -77,7 +86,20 @@ public class Estoque
         return codigo <= 1 && codigo >= estoque.size();
     }
 
+    public void inserirNovoProdutoArray(ArrayList<Produto> produtosArquivo)
+    {
+        for (int i = 0; i < produtosArquivo.size(); i++)
+        {
+            inserirNovoProduto(produtosArquivo.get(i));
+        }
+    }
+
     public Object get(int i) {
         return null;
+    }
+
+    public ArrayList<Produto> retornaEstoque()
+    {
+        return estoque;
     }
 }

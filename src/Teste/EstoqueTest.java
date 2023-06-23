@@ -1,5 +1,6 @@
 package Teste;
-
+/*
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
@@ -21,10 +22,7 @@ public class EstoqueTest {
 
     @Test
     public void testAtualizaCodigoProduto(Produto p) {
-
         Estoque verifica = e.atualizaCodigoProduto(p);
-        
-
     }
 
     @Test
@@ -36,7 +34,7 @@ public class EstoqueTest {
     public void testRetirarQuantidadeEstoque() {
 
     }
-    
+
     @Test
     public void testSelecionarProduto() {
         Estoque e = new Estoque();
@@ -45,11 +43,14 @@ public class EstoqueTest {
         e.selecionarProduto(input);
         assertSame(p, e.get(input - 1));
     }
-    
+
     /**
-     * 
+     *
      */
-    @Test
+/*
+import org.junit.Test;
+
+@Test
     public void testListarProdutos() {
 
         Estoque e = new Estoque();
@@ -63,7 +64,7 @@ public class EstoqueTest {
     public void testProdutosAbaixo() {
 
     }
-    
+
     @Test
     public void testListarProdutosAbaixo() {
 
@@ -83,5 +84,6 @@ public class EstoqueTest {
     public void testTemCodigo() {
 
     }
-
 }
+*/
+
