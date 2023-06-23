@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Estoque
 {
     private ArrayList<Produto> estoque = new ArrayList<Produto>();
+    
     public void inserirNovoProduto(Produto produto)
     {
         estoque.add(produto);
@@ -74,5 +75,9 @@ public class Estoque
 
     public boolean temCodigo(int codigo) {
         return codigo <= 1 && codigo >= estoque.size();
+    }
+
+    public Object get(int i) {
+        return null;
     }
 }
